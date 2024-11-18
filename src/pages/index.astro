@@ -61,7 +61,7 @@ const createKeys = () => {
 		};
 		keyboard.appendChild(tr);
 	};
-	document.getElementById('keys_view').appendChild(keyboard);
+	document.getElementById('keys_view')!.appendChild(keyboard);
 }
 window.onload = function() {
 	createKeys();
@@ -74,7 +74,8 @@ const now_hz_con = document.getElementById('now_hz_id');
 const pressedKeys = new Set(); // 押されたキーを管理するSet
 
 // キーとオシレーターを対応付けるオブジェクト
-const oscillators = {};
+type OscillatorMap = { [K in string]: Tone.Oscillator };
+const oscillators: OscillatorMap = {};
 
 // キーボードを押したときの処理
 document.addEventListener('keydown', event => {
@@ -82,10 +83,10 @@ document.addEventListener('keydown', event => {
 		pre_freq = now_freq;
 		const index = Key_input.indexOf(event.code);
 		now_freq *= frequencies[index*2] / frequencies[index*2+1];
-		pre_hz_con.textContent = pre_freq + ' Hz';
-		now_hz_con.textContent = now_freq + ' Hz';
+		pre_hz_con!.textContent = pre_freq + ' Hz';
+		now_hz_con!.textContent = now_freq + ' Hz';
 		
-		var key = event.key.toLowerCase();
+		var key: any = event.key.toLowerCase();
 		if(key == '\\') key = '\\\\';
 		if (key in oscillators) oscillators[key].start(now_freq);
   		else {// 新しいオシレーターを作成し、オブジェクトに追加
