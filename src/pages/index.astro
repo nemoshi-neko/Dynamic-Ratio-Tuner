@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Dynamic Ratio Tuner (DRT)">
+<Layout title="Dynamic Ratio Tuner">
 	<main class="text-center">
 		<h1 class="text-4xl m-10">Dynamic Ratio Tuner</h1>
 		<div class="flex justify-center">
@@ -12,6 +12,12 @@ import Layout from '../layouts/Layout.astro';
 		</div>
 		<div class="width-full m-10 border border-solid border-blue-700"></div>
 		<div id="keys_view" class="flex justify-center"></div>
+		<div id="buttons" class="flex justify-center">
+			<input type="button" value="Sine" id="Sine" class="border border-solid rounded-lg border-blue-700 m-5">
+			<input type="button" value="Triangle" id="Triangle" class="border border-solid rounded-lg border-blue-700 m-5">
+			<input type="button" value="Square" id="Square" class="border border-solid rounded-lg border-blue-700 m-5">
+			<input type="button" value="Sawtooth" id="Sawtooth" class="border border-solid rounded-lg border-blue-700 m-5">
+		</div>
 	</main>	
 </Layout>
 
@@ -20,6 +26,7 @@ import * as Tone from "tone";
 
 var pre_freq=440;
 var now_freq=440;
+var freqtype:Tone.ToneOscillatorType="sine";
 
 //周波数：分子、分母
 const frequencies = [ 1,1, 2,1, 3,2, 4,3, 5,4, 5,3, 6,5, 7,6, 7,5, 7,4, 8,7, 8,5, 9,8, 9,7, 9,5,
@@ -67,6 +74,11 @@ window.onload = function() {
 	createKeys();
 }
 
+document.getElementById("Sine")!.addEventListener("click", () => {freqtype="sine"});
+document.getElementById("Triangle")!.addEventListener("click", () => {freqtype="triangle"});
+document.getElementById("Square")!.addEventListener("click", () => {freqtype="square"});
+document.getElementById("Sawtooth")!.addEventListener("click", () => {freqtype="sawtooth"});
+
 //今のhzと一個前のhzの表示を変更するためのelements
 const pre_hz_con = document.getElementById('pre_hz_id');
 const now_hz_con = document.getElementById('now_hz_id');
@@ -93,6 +105,7 @@ document.addEventListener('keydown', event => {
     		const newOscillator = new Tone.Oscillator().toDestination();
     		newOscillator.volume.value = -16;
 			newOscillator.frequency.value = now_freq;
+			newOscillator.type = freqtype;
     		newOscillator.start();
     		oscillators[key] = newOscillator;
 		}
