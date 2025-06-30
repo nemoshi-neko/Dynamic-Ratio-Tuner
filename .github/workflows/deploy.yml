@@ -32,7 +32,7 @@ jobs:
       - name: Build Astro site
         run: npm run build # または pnpm build / yarn build
       - name: Upload artifact for GitHub Pages
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist # Astroのデフォルトのビルド出力ディレクトリは 'dist' です。異なる場合は変更してください。
 
@@ -46,3 +46,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
