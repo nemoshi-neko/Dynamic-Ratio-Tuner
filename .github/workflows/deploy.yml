@@ -1,8 +1,7 @@
 name: Deploy to GitHub Pages
 
 on:
-  # `main` ブランチにプッシュするたびにワークフローを実行します
-  # 異なるブランチ名を使用する場合は、`main` をブランチ名に置き換えてください
+  # `main` ブランチにプッシュするたびにワークフローを実行
   push:
     branches: [ main ]
   # このワークフローを GitHub の Actions タブから手動で実行できるようにします。
@@ -20,12 +19,22 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
-      - name: Install, build, and upload your site
-        uses: withastro/action@v1
-        # with:
-          # path: . # リポジトリ内のAstroプロジェクトのルートロケーション。(オプション)
-          # node-version: 18 # サイト構築に使用するNodeのバージョン。デフォルトは18です。（オプション）
-          # package-manager: pnpm@latest # 依存関係のインストールとサイトのビルドに使用する Node パッケージマネージャ。ロックファイルに基づいて自動的に検出されます。(オプション)
+      # Node.jsのセットアップを明示的に追加します
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.16.0 # Astroが推奨するまたはあなたが使用しているNode.jsのバージョンに設定してください
+          cache: 'npm' # 使用しているパッケージマネージャーに合わせて 'npm', 'yarn', または 'pnpm' を設定
+      # 依存関係をインストールします
+      - name: Install dependencies
+        run: npm install # または pnpm install / yarn install
+      # Astroサイトをビルドします
+      - name: Build Astro site
+        run: npm run build # または pnpm build / yarn build
+      - name: Upload artifact for GitHub Pages
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./dist # Astroのデフォルトのビルド出力ディレクトリは 'dist' です。異なる場合は変更してください。
 
   deploy:
     needs: build
@@ -36,4 +45,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4
