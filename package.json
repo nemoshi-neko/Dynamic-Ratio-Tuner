@@ -1,20 +1,26 @@
 {
-  "name": "dynamicratiotuner",
-  "type": "module",
-  "version": "0.0.1",
+  "name": "dynamic-ratio-tuner",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro check && astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-    "@astrojs/check": "^0.9.4",
-    "@astrojs/tailwind": "^5.1.2",
-    "astro": "^4.16.13",
-    "tailwindcss": "^3.4.15",
-    "tone": "^15.0.4",
-    "typescript": "^5.6.3"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nemoshi-neko/Dynamic-Ratio-Tuner.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/nemoshi-neko/Dynamic-Ratio-Tuner/issues"
+  },
+  "homepage": "https://github.com/nemoshi-neko/Dynamic-Ratio-Tuner#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.18"
   }
 }
