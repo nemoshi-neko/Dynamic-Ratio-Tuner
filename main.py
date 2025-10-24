@@ -26,7 +26,7 @@ def generate_index_html():
 		</div>
 		<div class="width-full m-10 border border-solid border-blue-700"></div>
 		<div id="keys_view" class="flex justify-center">
-        <table>
+        <table class="border-separate">
 """
     #b. キーボードの描画
     frequencies = [ 1,1, 2,1, 3,2, 4,3, 5,4, 5,3, 6,5, 7,6, 7,5, 7,4, 8,7, 8,5, 9,8, 9,7, 9,5,

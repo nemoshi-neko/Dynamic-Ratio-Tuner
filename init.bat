@@ -1,0 +1,2 @@
+npm install
+uv sync
