@@ -1,0 +1,39 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+# 実行権限の設定
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 成果物（/dist）をデプロイメントに利用できるようにアップロード
+      - name: Upload pages artifact from dist
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # 公開したいディレクトリを直接指定（ビルドステップは省略）
+          path: './dist' 
+
+  # 2. deploy
+  deploy:
+    needs: upload
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4 # アップロードされたアーティファクトをデプロイ
